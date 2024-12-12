@@ -1,0 +1,34 @@
+from tabulate import tabulate
+
+class Routeur:
+    def __init__(self, nom):
+        self.nom = nom 
+        self.table = [[nom,nom,0]]
+        self.voisins = []
+
+    def affiche_table(self):
+        print(f"Table de routage pour le routeur {self.nom}:")
+        headers = ["Destination", "Passerelle", "Distance"]
+        print(tabulate(self.table, headers=headers, tablefmt="grid"))
+    
+    def ajoute_voisin(self, voisins):
+        self.voisins.append(voisins.nom)
+        present = False
+        for element in self.table:
+            if element[0] == voisins.nom:
+                present = True
+                element[1] = voisins.nom
+                element[2] = 1
+        if not present:
+            self.table.append([voisins.nom, voisins.nom, 1])
+
+routeur1= Routeur("A")
+routeur2= Routeur("B")
+routeur1.ajoute_voisin(routeur2)
+routeur1.affiche_table()
+
+
+
+
+
+    
